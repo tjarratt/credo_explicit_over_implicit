@@ -31,29 +31,28 @@ defmodule CredoExplicitOverImplicit.Imports do
   end
 
   defp identify_implicit_imports(
-         [{:__aliases__, attrs, _module_alias}, [except: _explicit_imports]],
+         [{:__aliases__, attrs, _module_alias}, options],
          issue_meta
        ) do
-    [
-      format_issue(issue_meta,
-        message: "Use explicit imports with :only rather than implicit imports",
-        line_no: Keyword.get(attrs, :line),
-        trigger: :import
-      )
-    ]
+    case Keyword.get(options, :only) do
+      nil ->
+        [
+          format_issue(issue_meta,
+            message: "Use explicit imports with :only rather than implicit imports",
+            line_no: Keyword.get(attrs, :line),
+            trigger: :import
+          )
+        ]
+
+      _otherwise ->
+        []
+    end
   end
 
   defp identify_implicit_imports(
-         [{:__aliases__, _last_attrs, _module_alias}, [only: _explicit_imports]],
+         unknown_ast,
          _issue_meta
        ) do
-    []
-  end
-
-  defp identify_implicit_imports(
-         [{:__aliases__, _last_attrs, _module_alias}, unknown],
-         _issue_meta
-       ) do
-    raise "Unexpected AST : #{inspect(unknown)}\nPlease report this as a bug https://github.com/tjarratt/credo_explicit_over_implicit"
+    raise "Unexpected AST : #{inspect(unknown_ast)}\n\nPlease report this as a bug https://github.com/tjarratt/credo_explicit_over_implicit"
   end
 end
