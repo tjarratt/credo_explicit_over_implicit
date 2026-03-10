@@ -8,7 +8,7 @@ defmodule CredoExplicitOverImplicit.Imports do
     Credo.Code.prewalk(source_file, &traverse(&1, &2, issue_meta))
   end
 
-  defp traverse(ast = {:import, _import_attrs, import_statements}, issues, issue_meta) do
+  defp traverse({:import, _import_attrs, import_statements} = ast, issues, issue_meta) do
     new_issues =
       import_statements
       |> identify_implicit_imports(issue_meta)
