@@ -20,7 +20,7 @@ defmodule CredoExplicitOverImplicit.Imports do
     {ast, issues}
   end
 
-  defp identify_implicit_imports([{:__aliases__, attrs, [_module]}], issue_meta) do
+  defp identify_implicit_imports([{:__aliases__, attrs, _module_alias}], issue_meta) do
     [
       format_issue(issue_meta,
         message: "Use explicit imports with :only rather than implicit imports",

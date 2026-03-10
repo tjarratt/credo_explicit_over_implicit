@@ -45,7 +45,7 @@ defmodule CredoExplicitOverImplicit.ImportsTest do
     """
     defmodule CheekyModule do
       import Good.Module, only: [my_func: 1]
-      import Bad.Module, except: [not_this: 1]
+      import Bad.Module
     end
     """
     |> to_source_file()
