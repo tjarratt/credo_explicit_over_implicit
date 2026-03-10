@@ -31,7 +31,7 @@ defmodule CredoExplicitOverImplicit.Imports do
   end
 
   defp identify_implicit_imports(
-         [{:__aliases__, attrs, [_module]}, [except: _explicit_imports]],
+         [{:__aliases__, attrs, _module_alias}, [except: _explicit_imports]],
          issue_meta
        ) do
     [
@@ -44,14 +44,14 @@ defmodule CredoExplicitOverImplicit.Imports do
   end
 
   defp identify_implicit_imports(
-         [{:__aliases__, _last_attrs, [_module]}, [only: _explicit_imports]],
+         [{:__aliases__, _last_attrs, _module_alias}, [only: _explicit_imports]],
          _issue_meta
        ) do
     []
   end
 
   defp identify_implicit_imports(
-         [{:__aliases__, _last_attrs, [_module]}, unknown],
+         [{:__aliases__, _last_attrs, _module_alias}, unknown],
          _issue_meta
        ) do
     raise "Unexpected AST : #{inspect(unknown)}\nPlease report this as a bug https://github.com/tjarratt/credo_explicit_over_implicit"
