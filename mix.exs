@@ -9,7 +9,7 @@ defmodule CredoExplicitOverImplicit.MixProject do
       name: "CredoExplicitOverImplicit",
       description:
         "Provides Credo checks that optimize for making code explicit rather than implicit",
-      version: "1.2.0",
+      version: "1.3.0",
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
